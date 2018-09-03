@@ -105,7 +105,8 @@ function filter(messageData) {
                 location,
                 parseFloat(message.timeseries.value.data.toPrecision(3)),
                 units,
-                message.brokerage.id
+                message.brokerage.id,
+                message.entity.name ? message.entity.name : ''
             );
         }
     }
@@ -122,14 +123,14 @@ function findValue(message, path) {
     return value;
 }
 
-function addStream(timestamp, variable, location, value, units, name) {
+function addStream(timestamp, variable, location, value, units, name, buildingName) {
     if (!streamContainer || !variable) return;
     var listElement = document.createElement('li');
     var variableMain = ((variable.match(/^[^\(]+/) || [])[0] || '').trim();
     variable = variableMain ?
         '<span class="variable"><a title="' + name + '">' + variableMain + '</a></span>' + variable.replace(variableMain, '') :
         '<span class="variable"><a title="' + name + '">' + variable + '</a></span>';
-    var locationString = variable && location ? (variable + ' in <strong>' + location + '</strong>') : variable;
+    var locationString = variable && location ? (variable + ' in <strong><a title="' + buildingName + '">' + location + '</a></strong>') : variable;
     listElement.innerHTML = '\
       <span class="timestamp">' + timestamp + '</span> \
       <span class="description">' + locationString + ' is now <span class="number">' + value + '</span>' + (units ? ' ' + units : '') + '.</span>\
