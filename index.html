@@ -1,0 +1,163 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="/filtered_results.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            padding: 0;
+            height: 100%;
+            margin: 0;
+        }
+
+        input[type=text] {
+            width: 50px;
+        }
+
+        .filter-row {
+            display: inline-block;
+            padding: 5px 15px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #filter-tools {
+            padding: 10px;
+            border-bottom: 1px solid #555;
+            max-width: 100vw;
+        }
+
+        #filter-message {
+        }
+
+        header {
+            padding: 0.5rem;
+            color: #808080;
+            margin: 0 0 0.2rem 0;
+            border-bottom: 1px solid #808080;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            line-height: 2.2rem;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            position: relative;
+            top: -0.3rem;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+
+        li {
+            padding: 0.1rem;
+            margin: 0.1rem 0.5rem;
+        }
+
+        .timestamp {
+            display: inline-block;
+            font-weight: regular;
+            color: #505050;
+            width: 220px;
+        }
+
+        .description {
+            color: black;
+            line-height: 1.6rem;
+        }
+
+        .number {
+            border: 1px solid green;
+            border-radius: 3px;
+            padding: 0.1rem 0.2rem;
+            background: #a0d0a0;
+            font-weight: bold;
+        }
+
+        .variable {
+            border: 1px solid red;
+            border-radius: 3px;
+            padding: 0.1rem 0.2rem;
+            background: #d0a0a0;
+            font-weight: bold;
+        }
+
+        sub,
+        sup {
+            vertical-align: baseline;
+            position: relative;
+            top: -0.3em;
+        }
+
+        sub {
+            top: 0.3em;
+        }
+
+        .selectWrapper {
+            border-radius: 30px;
+            margin-top: 0.5rem;
+            display: inline-block;
+            overflow: hidden;
+            background: #cccccc;
+            border: 1px solid #cccccc;
+            margin-left: 3rem;
+        }
+
+        .selectBox {
+            width: 10rem;
+            height: 1.8rem;
+            line-height: 2rem;
+            font-weight: bold;
+            border: 0px;
+            outline: none;
+            text-indent: 0.5rem;
+            padding: 0.2rem 0 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="filter-tools">
+            <div class="filter-row">
+                <label for="room-filter">Room</label>
+                <input type="text" name="room-filter" id="room-filter">
+            </div>
+            <div class="filter-row">
+                <label for="floor-filter">Floor</label>
+                <input type="text" name="floor-filter" id="floor-filter">
+            </div>
+            <div class="filter-row">
+                <label for="zone-filter">Zone</label>
+                <input type="text" name="zone-filter" id="zone-filter">
+            </div>
+            <div class="filter-row">
+                <input type="checkbox" name="room-only" id="room-only"> Room Only
+            </div>
+            <div class="filter-row">
+                <input type="button" name="apply-filter" id="apply-filter" value="Apply Filters" onclick="javascript:applyFilters();">
+            </div>
+            <div id="filter-message">
+
+            </div>
+        </div>
+
+        <div id="stream-container">
+            <div class="stream-row">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
