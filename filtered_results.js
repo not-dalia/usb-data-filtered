@@ -136,7 +136,7 @@ function addStream(timestamp, variable, location, value, units, name, buildingNa
       <span class="description">' + locationString + ' is now <span class="number">' + value + '</span>' + (units ? ' ' + units : '') + '.</span>\
     ';
     streamContainer.insertBefore(listElement, streamContainer.firstElementChild);
-    removeExcessChildren(streamContainer, pageMax);
+    //removeExcessChildren(streamContainer, pageMax);
 }
 
 function removeExcessChildren(target, maximumChildren) {
@@ -151,7 +151,6 @@ function applyFilters() {
     addFilter('room', $('#room-filter').val() && $('#room-filter').val() != '' ? $('#room-filter').val() : null);
     addFilter('zone', $('#zone-filter').val() && $('#zone-filter').val() != '' ? $('#zone-filter').val() : null);
 
-    $('#stream-container').html('');
     var filterMessage = [];
     if (selectedFilters.room) filterMessage.push("Room: " + selectedFilters.room);
     if (selectedFilters.floor) filterMessage.push("Floor: " + selectedFilters.floor);
@@ -161,6 +160,10 @@ function applyFilters() {
 
     var showFilterMessage = filterMessage.length > 0 ? "Filtering for " + filterMessage.join(' | ') : "";
     $('#filter-message').text(showFilterMessage);
+}
+
+function clearData(){
+    $('#stream-container').html('');
 }
 
 $(document).ready(function () {
