@@ -7,6 +7,8 @@ var memoryMax = 10000;
 var pageMax = 500;
 var roomOnlyFilter = false;
 
+var timeout;
+
 const filterOptions = {
     floor: {
         path: 'metadata.buildingFloor',
@@ -25,10 +27,20 @@ var selectedFilters = { floor: null, room: null, zone: null };
 
 function startStream() {
     websocket = new WebSocket('wss://api.usb.urbanobservatory.ac.uk/stream');
+    timeout = setTimeout(function () {
+        websocket.close();
+        startStream();
+        console.warn('RESTARTING CONNECTION!')
+    }, 2000);
     websocket.addEventListener('message', function (m) {
         streamData = streamData.concat(m.data).slice(0, memoryMax);
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            websocket.close();
+            startStream();
+            console.warn('RESTARTING CONNECTION!')
+        }, 2000);
         filter(m.data);
-
     });
 }
 
@@ -162,7 +174,7 @@ function applyFilters() {
     $('#filter-message').text(showFilterMessage);
 }
 
-function clearData(){
+function clearData() {
     $('#stream-container').html('');
 }
 
